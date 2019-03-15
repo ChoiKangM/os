@@ -27,23 +27,21 @@ void showStack(NODE **startPtr, char *input)
   { 
     // stack - push!!
     push(startPtr,token);
-    printf("%s : token is inserted",token);
     token = strtok(NULL,s);
   }
   printf("pop!\n");
-  while(pop(startPtr, printData))
+  while(pop(startPtr, &printData))
     printf("%c ",*printData);
 }
 bool push(NODE **startPtr, char *token)
 {
   NODE *snew;
   bool success;
-
   snew = (NODE*)malloc(sizeof(NODE));
   if(!snew)
     success = false;
   else
-  {
+  { 
     snew->data = token;
     snew->link = *startPtr;
     *startPtr = snew;
@@ -52,7 +50,7 @@ bool push(NODE **startPtr, char *token)
   return success;
 }
 
-bool pop(NODE **startPtr, char *printData)
+bool pop(NODE **startPtr, char **printData)
 {
   NODE *sdel;
   bool success;
@@ -60,8 +58,7 @@ bool pop(NODE **startPtr, char *printData)
   if(*startPtr)
   {
     success     = true;
-    // 여기 뭔가 이상한
-    printData  = *(*startPtr)->data;
+    *printData  = (*startPtr)->data;
     sdel        = *startPtr;
     *startPtr   = (*startPtr)->link;
     free(sdel); 

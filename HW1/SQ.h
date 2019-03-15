@@ -14,6 +14,6 @@ void typeInstruction();
 typedef struct node NODE;
 void showStack(NODE **startPtr,char *input);
 bool push(NODE **startPtr, char *token);
-bool pop(NODE **startPtr, char *printData);
+bool pop(NODE **startPtr, char **printData);
 void queue(char *input);
 

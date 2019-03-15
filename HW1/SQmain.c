@@ -3,7 +3,8 @@
 // queue의 경우 strtok으로 잘라내면 그대로이므로 그대로 구현한다
 int main(){
   char input[100];
-  NODE **startPtr = NULL;
+  NODE *startPtr;
+  
   const char s[2] = " ";
   char type = 0;
 
@@ -15,11 +16,11 @@ int main(){
   // Stack, Queue 중 보여줄 형태를 고른다
   typeInstruction();
   scanf("%c",&type);
-  
+  startPtr = NULL;
   // 고른 구조를 보여준다
   if(type == 49)
   {
-    showStack(startPtr, input);
+    showStack(&startPtr, input);
   }else if(type == 50)
   {
     //queue(input);
