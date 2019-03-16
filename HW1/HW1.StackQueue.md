@@ -21,3 +21,4 @@ $ ./a.out
 
 [gdb](http://cseweb.ucsd.edu/classes/fa09/cse141/tutorial_gcc_gdb.html)
 [구조체의 멤버가 포인터일 때 역참조하기](https://dojang.io/mod/page/view.php?id=418)
+[string 사용법 in c](https://cs.nyu.edu/courses/spring05/V22.0201-001/c_tutorial/classes/String.html)

@@ -4,6 +4,7 @@
 int main(){
   char input[100];
   NODE *startPtr;
+  QUEUE *queuePtr;
   
   const char s[2] = " ";
   char type = 0;
@@ -24,6 +25,7 @@ int main(){
   }else if(type == 50)
   {
     //queue(input);
+    showQueue(&startPtr, input);
   }else
   {
     printf("Wrong input\n");

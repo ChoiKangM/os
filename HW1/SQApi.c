@@ -14,6 +14,14 @@ typedef struct node
   struct node *link;
 }NODE;
 
+typedef struct
+{
+    NODE* front;
+    NODE* rear;
+    int count;
+}QUEUE;
+
+
 // stack에서 오류 난다 ㅠㅠ
 void showStack(NODE **startPtr, char *input)
 {
@@ -27,11 +35,16 @@ void showStack(NODE **startPtr, char *input)
   { 
     // stack - push!!
     push(startPtr,token);
+    printf("token: %s\n",token);
     token = strtok(NULL,s);
   }
   printf("pop!\n");
   while(pop(startPtr, &printData))
-    printf("%c ",*printData);
+  {
+      
+    printf("%s ",printData);  
+  }
+    
 }
 bool push(NODE **startPtr, char *token)
 {
@@ -43,6 +56,7 @@ bool push(NODE **startPtr, char *token)
   else
   { 
     snew->data = token;
+    printf("snew->data : %s\n",snew->data);
     snew->link = *startPtr;
     *startPtr = snew;
     success = true;
@@ -66,12 +80,13 @@ bool pop(NODE **startPtr, char **printData)
     success = false;
   return success;
 }
-/* queue 자료구조 못만들면 이거 쓰자
+/*
+// queue 자료구조 못만들면 이거 쓰자
 void queue(char *input)
 {
   char *token;
   const char s[2] = " ";
-  printf("enqueue!\n");
+  printf("dequeue!\n");
   token = strtok(input, s);
   while(token != NULL)
   {
@@ -81,25 +96,40 @@ void queue(char *input)
 }
 */
 
-/*
-typedef struct
-{
-    NODE* front;
-    NODE* rear;
-    int count;
-}QUEUE;
 
-QUEUE* createQueue()
+// queue 만들자
+void showQueue(QUEUE **queuePtr, char *input)
 {
-    QUEUE* queue;
-    queue = (QUEUE*)malloc(sizeof(QUEUE));
-    if(queue)
+  QUEUE *queueNODE;
+  char *token;
+  char *printData;
+  const char s[2] = " ";
+  
+  queueNODE = createQueue();
+  printf("enqueue!\n");
+  token = strtok(input, s);
+  while(token != NULL)
+  { 
+    
+    enqueue(queueNODE,token);
+    token = strtok(NULL,s);
+  }
+  printf("dequeue!\n");
+  while(dequeue(queueNODE, &printdata))
+    printf("%s ", printData);
+}
+
+QUEUE* createQueue(void)
+{
+    QUEUE* queueNODE;
+    queueNODE = (QUEUE*)malloc(sizeof(QUEUE));
+    if(queueNODE)
     {
-        queue->front = NULL;
-        queue->rear  = NULL;
-        queue->count = 0;
+        queueNODE->front = NULL;
+        queueNODE->rear  = NULL;
+        queueNODE->count = 0;
     }
-    return queue;
+    return queueNODE;
 }
 
 bool enqueue(QUEUE* queue, char* token)
@@ -143,4 +173,3 @@ bool dequeue(QUEUE* queue, char* printData)
     
     return true;
 }
-*/
