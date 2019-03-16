@@ -4,7 +4,7 @@
 
 [Make File 만들기 1](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/)
 ```
-gcc -o SQ SQmain.c SQApi.c
+$ gcc -o SQ SQmain.c SQApi.c
 ```
 [Make File 만들기 2](https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html)
 
