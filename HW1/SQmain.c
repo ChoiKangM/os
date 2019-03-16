@@ -25,7 +25,7 @@ int main(){
   }else if(type == 50)
   {
     //queue(input);
-    showQueue(&startPtr, input);
+    showQueue(&queuePtr, input);
   }else
   {
     printf("Wrong input\n");

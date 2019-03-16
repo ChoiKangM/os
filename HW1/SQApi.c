@@ -14,9 +14,11 @@ typedef struct node
   struct node *link;
 }NODE;
 
-typedef struct
-{
+typedef struct queue
+{    
+    // enqueue 쪽 - 들어오는 쪽
     NODE* front;
+    // dequeue 쪽 - 나가는 쪽
     NODE* rear;
     int count;
 }QUEUE;
@@ -108,15 +110,19 @@ void showQueue(QUEUE **queuePtr, char *input)
   queueNODE = createQueue();
   printf("enqueue!\n");
   token = strtok(input, s);
+    
   while(token != NULL)
   { 
-    
     enqueue(queueNODE,token);
     token = strtok(NULL,s);
   }
   printf("dequeue!\n");
-  while(dequeue(queueNODE, &printdata))
-    printf("%s ", printData);
+    
+  while(dequeue(queueNODE, &printData))
+  {
+    printf("%s ", printData);  
+  }
+    
 }
 
 QUEUE* createQueue(void)
@@ -132,43 +138,41 @@ QUEUE* createQueue(void)
     return queueNODE;
 }
 
-bool enqueue(QUEUE* queue, char* token)
+bool enqueue(QUEUE* queueNODE, char* token)
 {
     NODE* newPtr;
     
     if(!(newPtr = (NODE*)malloc(sizeof(NODE))))
         return false;
-    
     newPtr->data = token;
     newPtr->link = NULL;
     
-    if(queue->count == 0)
+    if(queueNODE->count == 0)
         // Inserting into NULL queue
-        queue->front = newPtr;
+        queueNODE->front = newPtr;
     else
-        queue->rear->link = newPtr;
+        queueNODE->rear->link = newPtr;
     
-    (queue->count)++;
-    queue->rear = newPtr;
+    (queueNODE->count)++;
+    queueNODE->rear = newPtr;
     return true;
 }
 
 
-bool dequeue(QUEUE* queue, char* printData)
+bool dequeue(QUEUE* queueNODE, char** printData)
 {
     NODE* deleteLoc;
     
-    if(!queue->count)
+    if(!queueNODE->count)
         return false;
-    
-    printData = *queue->front->data;
-    deleteLoc = queue->front;
-    if(queue->count == 1)
+    *printData = queueNODE->front->data;
+    deleteLoc = queueNODE->front;
+    if(queueNODE->count == 1)
         //Deleting only item in queue
-        queue->rear = queue->front = NULL;
+        queueNODE->rear = queueNODE->front = NULL;
     else
-        queue->front = queue->front->link;
-    (queue->count)--;
+        queueNODE->front = queueNODE->front->link;
+    (queueNODE->count)--;
     free(deleteLoc);
     
     return true;
