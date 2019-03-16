@@ -1,4 +1,4 @@
-![HW1.StackQueue.png](img/HW1.StackQueue.png)
+![HW1.StackQueue.png](/img/HW1.StackQueue.png)
 
 [HW#1 stack & queue](img/HW#1.stack,queue.png)
 
