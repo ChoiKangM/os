@@ -24,7 +24,7 @@ typedef struct queue
 }QUEUE;
 
 
-// stack에서 오류 난다 ㅠㅠ
+// Stack
 void showStack(NODE **startPtr, char *input)
 {
   NODE *stackNODE;
@@ -46,7 +46,8 @@ void showStack(NODE **startPtr, char *input)
       
     printf("%s ",printData);  
   }
-    
+  // Stack - pop 완료
+  printf("\n"); 
 }
 bool push(NODE **startPtr, char *token)
 {
@@ -58,6 +59,7 @@ bool push(NODE **startPtr, char *token)
   else
   { 
     snew->data = token;
+    // Stack에 데이터 들어가는거 보여주자
     printf("snew->data : %s\n",snew->data);
     snew->link = *startPtr;
     *startPtr = snew;
@@ -82,24 +84,8 @@ bool pop(NODE **startPtr, char **printData)
     success = false;
   return success;
 }
-/*
-// queue 자료구조 못만들면 이거 쓰자
-void queue(char *input)
-{
-  char *token;
-  const char s[2] = " ";
-  printf("dequeue!\n");
-  token = strtok(input, s);
-  while(token != NULL)
-  {
-    printf("%s ", token);
-    token = strtok(NULL,s);
-  }
-}
-*/
 
-
-// queue 만들자
+// Queue
 void showQueue(QUEUE **queuePtr, char *input)
 {
   QUEUE *queueNODE;
@@ -114,6 +100,7 @@ void showQueue(QUEUE **queuePtr, char *input)
   while(token != NULL)
   { 
     enqueue(queueNODE,token);
+    printf("token: %s\n",token);
     token = strtok(NULL,s);
   }
   printf("dequeue!\n");
@@ -122,7 +109,8 @@ void showQueue(QUEUE **queuePtr, char *input)
   {
     printf("%s ", printData);  
   }
-    
+  // Queue - dequeue 완료
+  printf("\n"); 
 }
 
 QUEUE* createQueue(void)
@@ -140,40 +128,42 @@ QUEUE* createQueue(void)
 
 bool enqueue(QUEUE* queueNODE, char* token)
 {
-    NODE* newPtr;
+    NODE* qnew;
     
-    if(!(newPtr = (NODE*)malloc(sizeof(NODE))))
+    if(!(qnew = (NODE*)malloc(sizeof(NODE))))
         return false;
-    newPtr->data = token;
-    newPtr->link = NULL;
+    qnew->data = token;
+    // Queue에 데이터 들어가는거 보여주자
+    printf("qnew->data : %s\n",qnew->data);
+    qnew->link = NULL;
     
     if(queueNODE->count == 0)
         // Inserting into NULL queue
-        queueNODE->front = newPtr;
+        queueNODE->front = qnew;
     else
-        queueNODE->rear->link = newPtr;
+        queueNODE->rear->link = qnew;
     
     (queueNODE->count)++;
-    queueNODE->rear = newPtr;
+    queueNODE->rear = qnew;
     return true;
 }
 
 
 bool dequeue(QUEUE* queueNODE, char** printData)
 {
-    NODE* deleteLoc;
+    NODE* qdel;
     
     if(!queueNODE->count)
         return false;
     *printData = queueNODE->front->data;
-    deleteLoc = queueNODE->front;
+    qdel = queueNODE->front;
     if(queueNODE->count == 1)
         //Deleting only item in queue
         queueNODE->rear = queueNODE->front = NULL;
     else
         queueNODE->front = queueNODE->front->link;
     (queueNODE->count)--;
-    free(deleteLoc);
+    free(qdel);
     
     return true;
 }
