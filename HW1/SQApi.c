@@ -1,7 +1,7 @@
 #include "SQ.h"
 
 
-void typeInstruction()
+void typeInstruction(void)
 {
   printf("Insert your operation type\n\t"
           "- 1.Stack\n\t"
