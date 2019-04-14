@@ -12,3 +12,6 @@ SQApi.o : SQApi.c
 
 clean:
 	/bin/rm -f core *.o
+
+
+	
