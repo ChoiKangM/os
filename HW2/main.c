@@ -10,16 +10,21 @@ int main()
 	char str[size]; 
 
 	printf("-------------------SHELL-------------------\n");
-	printf("pwd, exit\n");
+	printf("help, pwd, ls, cd, exit\n");
 
 	while (true)
 	{
 		printf("-> ");
 		gets(str);
 
+        if (!strcmp("help", str))
+			help();
         if (!strcmp("pwd", str))
 			pwd();
-
+        if (!strcmp("ls", str))
+			ls();
+        if (!strcmp("cd", str))
+			cd();
 		if (!strcmp("exit", str))
 			break;
 	}
