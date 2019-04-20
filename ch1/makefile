@@ -8,7 +8,10 @@ mem : virtualizing_the_memory.o
 	$(CC) -o mem virtualizing_the_memory.o
 
 con : concurrency_example.c
-	$(CC) -lpthread con concurrency_example.c
+	$(CC) con concurrency_example.c -lpthread
+
+per : persistence.o
+	$(CC) -o per persistence.o
 
 
 
@@ -20,6 +23,9 @@ virtualizing_the_memory.o : virtualizing_the_memory.c
 
 # concurrency_example.o : concurrency_example.c
 #	$(CC) -c concurrency_example.c -Wall -pthread
+
+persistence.o : persistence.c
+	$(CC) -c persistence.c
 
 clean:
 	/bin/rm -f core *.o
