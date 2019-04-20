@@ -5,3 +5,5 @@
 * [HW1 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW1/HW1.StackQueue.md)
 
 * [HW2 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW2/HW2.MyshellProgram.md)
+
+* [사용되는 기본적인 라이브러리들](https://github.com/kei01138/os/blob/master/code.intro_for_os)
