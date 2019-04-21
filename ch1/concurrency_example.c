@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "common.h"
 
 // 컴파일러에 관련된 명령어로 더 빠른 속도로 처리된다
@@ -24,16 +25,15 @@ int main(int argc, char *argv[])
 	{
 		fprintf(stderr, "usage: threads <value>\n");
 		exit(1);
-		
-		loops = atoi(argv[1]);
-		pthread_t p1,p2;
-		printf("Initial value : %d\n", counter);
-		
-		Pthread_create(&p1, NULL, worker, NULL);
-		Pthread_create(&p2, NULL, worker, NULL);
-		Pthread_join(p1, NULL);
-		Pthread_join(p2, NULL);
-		printf("Final value : %d\n", counter);
-		return 0;
 	}
+	loops = atoi(argv[1]);
+	pthread_t p1,p2;
+	printf("Initial value : %d\n", counter);
+
+	pthread_create(&p1, NULL, worker, NULL);
+	pthread_create(&p2, NULL, worker, NULL);
+	pthread_join(p1, NULL);
+	pthread_join(p2, NULL);
+	printf("Final value : %d\n", counter);
+	return 0;
 }

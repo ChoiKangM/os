@@ -8,5 +8,8 @@ $ ./cpu "A" & ./cpu "B" & ./cpu "C"
 ```bash
 $ gcc pthread.c -lpthread
 ```
-
-### 현재 `concurrency_example.c` 하는 중 
+* [Undefined reference to pthread_create in Linux
+](https://stackoverflow.com/questions/1662909/undefined-reference-to-pthread-create-in-linux)
+```bash
+$ gcc -pthread -o term term.c
+```
