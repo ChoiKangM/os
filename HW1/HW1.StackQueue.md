@@ -6,7 +6,9 @@
 ```
 $ gcc -o SQ SQmain.c SQApi.c
 ```
-[Make File 만들기 2](https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html)
+[Make File 만들기 2](https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html)  
+  
+[make file 연산자 정리](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)  
 
 [StackoverFlow 답변](https://stackoverflow.com/questions/1484817/how-do-i-make-a-simple-makefile-for-gcc-on-linux)
 

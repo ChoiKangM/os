@@ -1,4 +1,4 @@
 void help();
 int pwd();
-int ls();
-int cd();
+int myls();
+int mycd(int argc, char* argv[]);

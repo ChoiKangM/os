@@ -8,8 +8,8 @@ void help()
         "\nList of Commands supported:"
         "\n>help"
         "\n>pwd"
-        "\n>ls"
-        "\n>cd"
+        "\n>myls"
+        "\n>mycd"
         "\n>exit"); 
   
     return; 

@@ -1,18 +1,11 @@
 CC=gcc
-OBJ=main.o pwd.o help.o 
+OBJ=main.o pwd.o help.o myls.o mycd.o
 
 myShell : $(OBJ)
-    $(CC) -o myShell $(OBJ)
+	$(CC) -o myShell $(OBJ)
 
-main.o : main.c
-    $(CC) -c main.c
-    
-pwd.o : pwd.c
-    $(CC) -c pwd.c
-
-help.o : help.c
-    $(CC) -c help.c
-
+.c.o :
+	$(CC) -c $< -o $@
 
 clean :
-    /bin/rm -f core *.o
+	/bin/rm -f core *.o

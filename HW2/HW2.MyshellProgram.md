@@ -13,7 +13,7 @@ $ gcc -o myShell main.c pwd.c
 ```
 * [make linux shell in c](https://www.geeksforgeeks.org/making-linux-shell-c/)
 * [wite a shell in c](https://brennan.io/2015/01/16/write-a-shell-in-c/)
-* []()
-* []()
+* [c로 shell command 만들기](https://github.com/Reevid/shell/blob/master/shell.c)
+* [나만의 shell command 만들기 in c](https://splug.tistory.com/186)
 * []()
 
