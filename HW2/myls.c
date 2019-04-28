@@ -17,7 +17,9 @@ int myls()
       perror( "_getcwd error" );
    else
    {
-      printf( "%s \nLength: %d\n", buffer, strnlen(buffer) );
+      printf( "current directory : %s \n"
+             "Number of internal elements : %d\n", buffer, strnlen(buffer)-1 );
+       // strnlen include terminating null byte('\0')
    }
     
     mydir = opendir(buffer);

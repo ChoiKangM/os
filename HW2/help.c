@@ -9,7 +9,6 @@ void help()
         "\n>help"
         "\n>pwd"
         "\n>myls"
-        "\n>mycd"
         "\n>exit"); 
   
     return; 

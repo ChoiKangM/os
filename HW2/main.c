@@ -10,7 +10,7 @@ int main()
 	char str[size]; 
 
 	printf("-------------------SHELL-------------------\n");
-	printf("help, pwd, myls, mycd, exit\n");
+	printf("help, pwd, myls, exit\n");
 
 	while (true)
 	{
@@ -23,8 +23,6 @@ int main()
 			pwd();
         if (!strcmp("myls", str))
 			myls();
-        if (!strcmp("mycd", str))
-			//dmycd();
 		if (!strcmp("exit", str))
 			break;
 	}

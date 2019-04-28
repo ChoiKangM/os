@@ -1,5 +1,5 @@
 CC=gcc
-OBJ=main.o pwd.o help.o myls.o mycd.o
+OBJ=main.o pwd.o help.o myls.o
 
 myShell : $(OBJ)
 	$(CC) -o myShell $(OBJ)
