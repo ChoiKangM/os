@@ -21,12 +21,16 @@ int myls()
              "Number of internal elements : %d\n", buffer, strnlen(buffer)-1 );
        // strnlen include terminating null byte('\0')
    }
-    
+    // get directory name
     mydir = opendir(buffer);
+    // check each file in directory
     while((myfile = readdir(mydir)) != NULL)
-    {
+    {    
+        // find file's information
         stat(myfile->d_name, &mystat);    
+        // print file size
         printf("%d",mystat.st_size);
+        // print file name
         printf(" %s\n", myfile->d_name);
     }
     closedir(mydir);
