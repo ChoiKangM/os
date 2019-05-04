@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <sys/time.h>
 #include <pthread.h>
 #include <assert.h>
@@ -11,7 +10,8 @@ int SIZE, NTHREADS;
 int **A, **B, **C;
 
 void init()
-{
+{    
+    // 행렬 선언
     int i, j;
 
     A = (int**)malloc(SIZE * sizeof(int *));
@@ -37,7 +37,8 @@ void init()
 }
 
 void calWithPthread(int tid)
-{
+{    
+    // Pthread 가지고 행렬 연산
     int i, j, k;
     int start = tid * SIZE/NTHREADS;
     int end = (tid+1) * (SIZE/NTHREADS) - 1;
@@ -54,6 +55,7 @@ void calWithPthread(int tid)
 
 void calWithoutPthread()
 {
+    // 그냥 행렬 연산 
     int i, j, k;
     for(i = 0; i < SIZE; i++) {
         for(j = 0; j < SIZE; j++) {
@@ -81,10 +83,14 @@ int main(int argc, char* argv[])
         printf("Usage: %s <size_of_square_matrix> <number_of_threads>\n", argv[0]);
         exit(1);
     }
-
+    
+    // 행렬 크기 SIZE * SIZE
     SIZE = atoi(argv[1]);
+    // Thread 개수
     NTHREADS = atoi(argv[2]);
+    // 행렬 선언
     init();
+    // thread 할당
     threads = (pthread_t*)malloc(NTHREADS * sizeof(pthread_t));
 
     struct timeval tpstart, tpend;
@@ -118,6 +124,7 @@ int main(int argc, char* argv[])
 
     printf("Calculation time without pthread: %ld mseconds.\n", timediff);
 
+    // malloc한 행렬을 모두 free
     for(i = 0; i < SIZE; i++)
         free((void *)A[i]);
     free((void *)A);

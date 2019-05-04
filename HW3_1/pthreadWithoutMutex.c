@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
-#include "common.h"
 
 // 컴파일러에 관련된 명령어로 더 빠른 속도로 처리된다
 // volatile은 메모리에 저장하여 전역변수로 사용된다
@@ -13,6 +12,7 @@ pthread_mutex_t lock;
 
 void *workerWithoutMutex(void *arg)
 {
+    // Mutex없이 전역변수 연산
 	int i;
 	for(i=0;i<loops;i++)
 	{
@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
 	printf("100만까지는 정상적으로 작동하지만\n");
 	printf("1000만부터는 전역변수가 깨집니다\n");
 	printf("Initial value without mutex : %d\n", counter);
-
+    
+    // pthread를 사용해 연산
 	pthread_create(&p1, NULL, workerWithoutMutex, NULL);
 	pthread_create(&p2, NULL, workerWithoutMutex, NULL);
 	pthread_join(p1, NULL);
