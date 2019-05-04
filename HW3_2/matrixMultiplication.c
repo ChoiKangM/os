@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 #include <pthread.h>
 #include <assert.h>
+
+#define MILLION 1000000 
 
 int SIZE, NTHREADS;
 int **A, **B, **C;
@@ -84,11 +87,11 @@ int main(int argc, char* argv[])
     init();
     threads = (pthread_t*)malloc(NTHREADS * sizeof(pthread_t));
 
-    clock_t begin, end;
-    double time_spent;
+    struct timeval tpstart, tpend;
+    long timediff;
 
     // calcuation with pthread
-    begin = clock();
+    gettimeofday(&tpstart,NULL);
     
     for(i = 0; i < NTHREADS; i++) {
         rc = pthread_create(&threads[i], NULL, pthreadWorker, (void *)i);
@@ -99,21 +102,21 @@ int main(int argc, char* argv[])
         rc = pthread_join(threads[i], NULL);
         assert(rc == 0);
     } 
+    gettimeofday(&tpend,NULL);
+    timediff = MILLION*(tpend.tv_sec - tpstart.tv_sec) + tpend.tv_usec - tpstart.tv_usec;
 
-    end = clock();
-
-    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Calculation time with pthread: %lf seconds.\n", time_spent);
+    printf("Calculation time with pthread: %ld mseconds.\n", timediff);
     
     // calculation without pthread
-    begin = clock();
+    gettimeofday(&tpstart,NULL);
 
     calWithoutPthread();
 
-    end = clock();
+    gettimeofday(&tpend,NULL);
+    timediff = MILLION*(tpend.tv_sec - tpstart.tv_sec) + tpend.tv_usec - tpstart.tv_usec;
 
-    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Calculation time without pthread: %lf seconds.\n", time_spent);
+
+    printf("Calculation time without pthread: %ld mseconds.\n", timediff);
 
     for(i = 0; i < SIZE; i++)
         free((void *)A[i]);
