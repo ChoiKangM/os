@@ -6,7 +6,9 @@
 
 * [HW2 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW2/HW2.MyshellProgram.md)
 
-* [HW3 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW2/HW2.pthread.md)
+* [HW3_1 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW3_1/HW3_1.pthread.md)
+
+* [HW3_2 + 찾아본 문서들](https://github.com/kei01138/os/blob/master/HW3_2/HW3_2.MatrixMultiplicationPerfromTime.md)
 
 
 * [사용되는 기본적인 라이브러리들](https://github.com/kei01138/os/blob/master/code.intro_for_os)
