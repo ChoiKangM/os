@@ -18,3 +18,9 @@ Write = 3
 3. Stack과 Heap의 크기를 달리하여 다른 지점에서 충돌시켜 처음 경우와 결과를 비교해 보시면 됩니다.
 
 
+![img/mallocHeapTooMuch.png](../img/mallocHeapTooMuch.png)
+![img/stackRecursiveCall.png](../img/stackRecursiveCall.png)
+![img/checkHeap1000.png](../img/checkHeap1000.png)
+![img/chechHeap1200.png](../img/chechHeap1200.png)
+![img/checkHeap1200_Mem.png](../img/checkHeap1200_Mem.png)
+![img/checkHeap1500.png](../img/checkHeap1500.png)

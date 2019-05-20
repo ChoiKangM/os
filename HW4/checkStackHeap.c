@@ -10,67 +10,68 @@
 #define GROUP 4
 #define MAXTEXT 25
 
-long       *MemoryPtr;
+long     *MemoryPtr;
 unsigned long    FirstStackLocation;
+int 	 stackIteration;
 
 void     RecursiveRoutine( int );
 char     *commas(unsigned long amount);
 int 	 prepend(char *, unsigned, char *);
 int 	 preprintf(char *, unsigned, char *, ...);
-
 //  This is a global so the subroutine can see it.
 
 int main(int argc, char *argv[]){
-
-    long         NumberOfMegaBytes, NumberOfAllocations = 0;
+	
+	long         HeapNumberOfMegaBytes, HeapNumberOfAllocations = 0;
     long         Temp;
     long         *TempPointer;
     char         MemoryFunction[32];
     int          Function = 0;
     int          TopOfStack;
     int          Counter = 0;
+    stackIteration = atoi( argv[1] );
     
-    
+	 if (argc < 4 ) {
+        printf( "Usage: %s <StackSize> <HeapSizeInMegabyte> <Heap-Read|Write|Nothing>\n", argv[0]);
+        exit(1);
+    }
     // resurciveCall.c
     FirstStackLocation = (unsigned long)(&TopOfStack);
     printf("First location on stack: %s\n", 
             commas( (unsigned long)FirstStackLocation  ) );
     RecursiveRoutine( 0 );
 
-    if (argc < 3 ) {
-        printf( "Usage: %s <MemorySizeInMegabyte> <Read|Write|Nothing>\n", argv[0]);
-        exit(1);
-    }
+   
     
     // mallocTooMuch.c
     //  Get the arguments and validate them
-    NumberOfMegaBytes = atoi( argv[1] );
-    strcpy( MemoryFunction, argv[2] );
+    HeapNumberOfMegaBytes = atoi( argv[2] );
+    strcpy( MemoryFunction, argv[3] );
 	// Nothing = 1, Read = 2, Write = 3
     if ( strncmp ( MemoryFunction, "Nothing", 7 ) == 0 ) Function = 1;
     if ( strncmp ( MemoryFunction, "Read", 4 ) == 0    ) Function = 2;
     if ( strncmp ( MemoryFunction, "Write", 5 ) == 0   ) Function = 3;
     if ( Function == 0 )  {
         printf( "Unable to recognize the Read|Write|Nothing portion of the command\n");
-		return;
+		return 0;
     }
 
     //  Now loop through each of the megabytes and perhaps touch each of the 1024 pages
     //  in that megabyte.
-    //  MemoryPtr을 이용해 1MG씩 malloc, NumberofAllocations -> 할당된 메모리
-	while ( NumberOfAllocations < NumberOfMegaBytes ) 
+    //  MemoryPtr을 이용해 1MG씩 malloc, HeapNumberofAllocations -> 할당된 메모리
+	while ( HeapNumberOfAllocations < HeapNumberOfMegaBytes ) 
 	{
         MemoryPtr = ( long * ) malloc( ONE_MEG );
         if ( MemoryPtr == 0 ) 
 		{
             printf( "The program is ending because we could allocate no more memory.\n");
-			printf( "Total megabytes allocated = %d\n", NumberOfAllocations );
+			printf( "Total megabytes allocated = %d\n", HeapNumberOfAllocations );
             exit(0);
         }
-		NumberOfAllocations++;
+		HeapNumberOfAllocations++;
 
-		if ( ( NumberOfAllocations % 100 ) == 0 )    // Print out status every so often
-			printf( "We have allocated %d Megabytes\n", NumberOfAllocations );
+		if ( ( HeapNumberOfAllocations % 100 ) == 0 )    // Print out status every so often
+			printf( "We have allocated %d Megabytes\n", HeapNumberOfAllocations );
 
 		TempPointer = MemoryPtr;
 		if ( Function == 2 )   
@@ -99,13 +100,16 @@ void  RecursiveRoutine( int RecursiveDepth )
     char    Temp[ STACK_ALLOC ];
     char    StringTop[32];
     char    StringBottom[32];
-
+	
+	if(stackIteration == 0)
+		return;
     strcpy( StringTop,  commas( (unsigned long)(FirstStackLocation) ) );
     strcpy( StringBottom, commas( (unsigned long)&(Temp[STACK_ALLOC]) ) );
     printf("Iteration = %3d:  Stack Top/Bottom/Bytes: %s  %s  %d\n", 
              RecursiveDepth, StringTop, StringBottom,
              FirstStackLocation - (unsigned long)&(Temp[STACK_ALLOC])  );
     RecursiveDepth++;
+	stackIteration--;
     RecursiveRoutine( RecursiveDepth );
 }
 char *commas(unsigned long amount)
