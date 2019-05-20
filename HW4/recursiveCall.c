@@ -10,19 +10,29 @@
 //  Compile with  gcc recursive.c -o rc.
 //  This SHOULD work with 32 or 48 bit logical addresses
 ////////////////////////////////////////////////////////////////////////
-#include  <stdio.h>
-#include  <string.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <stdlib.h>
 
-#define   ONE_MEG              1048576
+
+#define ONE_MEG 1048576
+#define STACK_ALLOC ONE_MEG/20
+#define BASE 16
+#define GROUP 4
+#define MAXTEXT 25
+
 
 //  Prototypes
 void     RecursiveRoutine( int );
 char     *commas(unsigned long amount);
+int 	 prepend(char *, unsigned, char *);
+int 	 preprintf(char *, unsigned, char *, ...);
 
 //  This is a global so the subroutine can see it.
 unsigned long    FirstStackLocation;
 
-int    main( int argc, char  *argv[] )
+int main( int argc, char  *argv[] )
 {
     int    TopOfStack;
     int    Counter = 0;
@@ -38,7 +48,7 @@ int    main( int argc, char  *argv[] )
 //  a variable to the stack which uses up space on the stack.
 //  It's expected that the program will crash when memory is exhausted.
 ///////////////////////////////////////////////////////////////////////////
-#define    STACK_ALLOC    ONE_MEG/20
+
 void  RecursiveRoutine( int RecursiveDepth )
 {
     char    Temp[ STACK_ALLOC ];
@@ -58,8 +68,6 @@ void  RecursiveRoutine( int RecursiveDepth )
 //  The following routines are for formatting only and aren't needed for
 //  an understanding of the memory manipulations done above.
 ///////////////////////////////////////////////////////////////////////////
-#define BASE 16
-#define GROUP 4
 // This routine converts an unsigned integer into a string with commas.
 // You may need to adjust the base and the number of digits between
 // commas as given by BASE and GROUP.
@@ -68,13 +76,10 @@ void  RecursiveRoutine( int RecursiveDepth )
 // BASE and GROUP above (but logarithmically, not
 // as a constant. so we must define it manually here)
 ///////////////////////////////////////////////////////////////////////////
-#define MAXTEXT 25 
-
-int prepend(char *, unsigned, char *);
-int preprintf(char *, unsigned, char *, ...);
+ 
 
 char *commas(unsigned long amount)
-    {
+{
     short i;
     short offset = MAXTEXT-1;   /* where the string "starts"  */
     short place;                /* the power of BASE for      */
@@ -86,7 +91,7 @@ char *commas(unsigned long amount)
 					     
    /* Push digits right-to-left with commas */
    for (place = 0; amount > 0; ++place)
-      {
+     {
       if (place % GROUP == 0 && place > 0)
          offset = prepend(text,offset,",");
       offset = preprintf(text,offset,"%X",amount % BASE);
@@ -96,13 +101,9 @@ char *commas(unsigned long amount)
 }
     /* preprint.c: Functions to prepend strings */
     
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <stdlib.h>
     
 int prepend(char *buf, unsigned offset, char *new_str)
-    {
+{
     int new_len = strlen(new_str);
     int new_start = offset - new_len;
     /* Push a string onto the front of another */
@@ -114,13 +115,13 @@ int prepend(char *buf, unsigned offset, char *new_str)
 }
     
 int preprintf(char *buf, unsigned offset, char *format, ...)
-    {
+{
     int pos = offset;
     char *temp = malloc(BUFSIZ);
     
     /* Format, then push */
     if (temp)
-        {
+    {
         va_list args;
         
         va_start(args,format);

@@ -50,36 +50,44 @@ int main(int argc, char *argv[]){
     if ( strncmp ( MemoryFunction, "Write", 5 ) == 0   ) Function = 3;
     if ( Function == 0 )  {
         printf( "Unable to recognize the Read|Write|Nothing portion of the command\n");
-	return;
+		return;
     }
 
     //  Now loop through each of the megabytes and perhaps touch each of the 1024 pages
     //  in that megabyte.
-    while ( NumberOfAllocations < NumberOfMegaBytes ) {
+    //  MemoryPtr을 이용해 1MG씩 malloc, NumberofAllocations -> 할당된 메모리
+	while ( NumberOfAllocations < NumberOfMegaBytes ) 
+	{
         MemoryPtr = ( long * ) malloc( ONE_MEG );
-        if ( MemoryPtr == 0 ) {
+        if ( MemoryPtr == 0 ) 
+		{
             printf( "The program is ending because we could allocate no more memory.\n");
-	    printf( "Total megabytes allocated = %d\n", NumberOfAllocations );
+			printf( "Total megabytes allocated = %d\n", NumberOfAllocations );
             exit(0);
         }
-	NumberOfAllocations++;
-	if ( ( NumberOfAllocations % 100 ) == 0 )    // Print out status every so often
-		printf( "We have allocated %d Megabytes\n", NumberOfAllocations );
+		NumberOfAllocations++;
 
-	TempPointer = MemoryPtr;
-	if ( Function == 2 )   {                     // Read from each page in the megabyte
-	    while ( (unsigned long)TempPointer < (unsigned long)((long)MemoryPtr + ONE_MEG) )  {
-                Temp                   = TempPointer[0];
-                TempPointer = (long *)((unsigned long)TempPointer +4096);
-            }          // End of while
-        }              // End of if Function is Read
+		if ( ( NumberOfAllocations % 100 ) == 0 )    // Print out status every so often
+			printf( "We have allocated %d Megabytes\n", NumberOfAllocations );
 
-	if ( Function == 3 )    {                    // Write to each page in the megabyte
-	    while ( (unsigned long)TempPointer < (unsigned long)((long)MemoryPtr + ONE_MEG) )  {
-                TempPointer[0] = Temp;
-                TempPointer = (long *)((unsigned long)TempPointer +4096);
-            }          // End of while
-        }              // End of if Function is Write
+		TempPointer = MemoryPtr;
+		if ( Function == 2 )   
+		{                     // Read from each page in the megabyte
+			while ( (unsigned long)TempPointer < (unsigned long)((long)MemoryPtr + ONE_MEG) )  
+			{
+					Temp                   = TempPointer[0];
+					TempPointer = (long *)((unsigned long)TempPointer +4096);
+			}          // End of while
+		}              // End of if Function is Read
+
+		if ( Function == 3 )    
+		{                    // Write to each page in the megabyte
+			while ( (unsigned long)TempPointer < (unsigned long)((long)MemoryPtr + ONE_MEG) )  
+			{
+					TempPointer[0] = Temp;
+					TempPointer = (long *)((unsigned long)TempPointer +4096);
+			}          // End of while
+		}              // End of if Function is Write
     }                  // End of while memory still can be allocated
 
 }                             // End of main
